@@ -1,0 +1,33 @@
+services:
+  new-next:
+    image: new-next-image:0.0.1
+    container_name: new-next
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+
+    # Set environment variables directly in the docker-compose file
+    environment:
+      ENV_VARIABLE: ${ENV_VARIABLE}
+      NEXT_PUBLIC_ENV_VARIABLE: ${NEXT_PUBLIC_ENV_VARIABLE}
+
+    # Set envrionment variables based on the .env file
+    env_file:
+      - .env
+    volumes:
+      - ./src:/app/src
+      - ./public:/app/public
+    restart: always
+    ports:
+      - 3000:3000
+    # networks:
+    #   - my_media_network
+  # Add more containers below (nginx, postgres, etc.)
+
+# Define a network, which allows containers to communicate
+# with each other, by using their container name as a hostname
+# networks:
+#   my_network:
+#     external: true
+# Path: docker-compose.dev.yml
+# /Users/mshittu/programming-projects/javascript/react/new-next/docker-compose.dev.yml
